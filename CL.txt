@@ -1,0 +1,86 @@
+import java.util.;
+
+public class CatPhilosophy {
+
+    private static final MapString, String responseMap = new HashMap();
+    private static final ListString options = new ArrayList();
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        initResponses();
+        initOptions();
+
+        System.out.println(之所以是貓那是因為他是貓 如果他不是貓那他的就不是貓了);
+
+        while (true) {
+             顯示選項
+            System.out.println(n請選擇一個選項：);
+            for (int i = 0; i  options.size(); i++) {
+                System.out.println((i + 1) + .  + options.get(i));
+            }
+
+             讀取用戶選擇
+            System.out.print(輸入數字選擇（或輸入 0 結束對話）：);
+            int choice = scanner.nextInt();
+            scanner.nextLine();  清除換行符
+
+             結束對話
+            if (choice == 0) {
+                System.out.println(再見！);
+                break;
+            }
+
+             確保選擇有效
+            if (choice  1  choice  options.size()) {
+                System.out.println(請輸入有效的選項！);
+                continue;
+            }
+
+             獲取選項內容
+            String selectedOption = options.get(choice - 1);
+            System.out.println(n你  + selectedOption);
+ 取得回應
+            String response = responseMap.getOrDefault(selectedOption, 貓？);
+            System.out.println(貓  + response);
+
+             隨機更新選項
+            updateOptions();
+        }
+
+        scanner.close();
+    }
+
+     初始化對話回應
+    private static void initResponses() {
+        responseMap.put(貓, 貓啊。);
+        responseMap.put(貓？, 貓。);
+        responseMap.put(貓！, 貓！！！);
+        responseMap.put(貓呢, 在貓身上啊。);
+        responseMap.put(貓身上, 貓在貓身上。);
+        responseMap.put(在貓, 貓還是在貓身上。);
+        responseMap.put(是貓, 對，是貓。);
+        responseMap.put(不是貓, 那就不是貓了。);
+        responseMap.put(貓和貓, 貓和貓和貓。);
+        responseMap.put(和貓, 和貓一起。);
+        responseMap.put(養貓, 你有貓嗎？);
+        responseMap.put(有貓, 貓呢？);
+        responseMap.put(沒貓, 沒貓就是沒貓。);
+    }
+
+     初始化選項
+    private static void initOptions() {
+        options.add(貓);
+        options.add(貓？);
+        options.add(貓！);
+    }
+
+     隨機更換三個選項
+    private static void updateOptions() {
+        ListString keys = new ArrayList(responseMap.keySet());
+        Collections.shuffle(keys);
+        options.clear();
+        options.add(keys.get(0));
+        options.add(keys.get(1));
+        options.add(keys.get(2));
+    }
+}
